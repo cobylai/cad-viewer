@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cad-viewer demo</title>
+  <script type="module" src="../dist/cad-viewer.cdn.js"></script>
+  <style>
+    :root { color-scheme: light dark; --bg: #fbf8ef; --fg: #111; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #161616; --fg: #eee; } }
+    body { margin: 0; padding: 32px 16px; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+    main { max-width: 640px; margin: 0 auto; }
+    h2 { font-size: 1em; margin: 40px 0 8px; }
+    code { font-size: .9em; }
+    cad-viewer { --cad-viewer-bg: var(--bg); --cad-viewer-border: 1px solid var(--fg); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dark { --cad-viewer-bg: #161616; --cad-viewer-fg: #eee; --cad-viewer-border: 0; --cad-viewer-radius: 12px; }
+    #log { font: 12px ui-monospace, monospace; opacity: .7; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>&lt;cad-viewer&gt;</h1>
+  <p>Drag to orbit, flick to spin, scroll or pinch to zoom. The slider scrubs the
+  exploded view baked into the model's animation clips.</p>
+
+  <h2>Exploded view, playing on load</h2>
+  <cad-viewer id="main" src="cubes.glb" autoplay fit-explode alt="A block of coloured cubes that explodes outward"></cad-viewer>
+  <p id="log"></p>
+
+  <h2>Default framing: tight on the assembled model, higher camera</h2>
+  <cad-viewer src="cubes.glb" camera-tilt="35" aspect-ratio="4/3"></cad-viewer>
+
+  <h2>Themed with CSS custom properties; display-only turntables</h2>
+  <div class="row">
+    <cad-viewer class="dark" src="cubes.glb" no-interact no-explode rotation-speed="4" aspect-ratio="1"></cad-viewer>
+    <cad-viewer src="cubes.glb" no-interact no-explode studio-light rotation-speed="-4" aspect-ratio="1"></cad-viewer>
+  </div>
+
+  <h2>Load error</h2>
+  <cad-viewer src="missing.glb" aspect-ratio="3/1"></cad-viewer>
+</main>
+<script>
+  const log = document.getElementById('log');
+  const main = document.getElementById('main');
+  main.addEventListener('load', (e) => { log.textContent = `load: ${e.detail.animations.length} animation clips`; });
+  main.addEventListener('error', (e) => { log.textContent = `error: ${e.detail.error}`; });
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "cad-viewer",
+  "version": "1.0.0",
+  "description": "<cad-viewer>: a web component for GLB/glTF models with orbit, flick-to-spin and scrubbable exploded views.",
+  "type": "module",
+  "main": "cad-viewer.js",
+  "exports": {
+    ".": "./cad-viewer.js",
+    "./cdn": "./dist/cad-viewer.cdn.js"
+  },
+  "files": ["cad-viewer.js", "dist/"],
+  "scripts": {
+    "build": "node scripts/build-cdn.mjs"
+  },
+  "peerDependencies": {
+    "three": ">=0.168.0"
+  },
+  "keywords": ["three", "gltf", "glb", "web-component", "cad", "3d", "exploded-view"],
+  "repository": "github:cobylai/cad-viewer",
+  "license": "MIT"
+}
